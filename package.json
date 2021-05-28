@@ -1,0 +1,28 @@
+{
+  "name": "hooli",
+  "version": "1.0.0",
+  "description": "A patient record portal",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": " cd hooli_client && npm install && cd ../hooli_server && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd hooli_client && npm start",
+    "server": "cd hooli_server && node .",
+    "server-dev": "cd hooli_server && nodemon .",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sankshitpandoh/hooli.git"
+  },
+  "author": "Sankshit Pandoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sankshitpandoh/hooli/issues"
+  },
+  "homepage": "https://github.com/sankshitpandoh/hooli#readme",
+  "dependencies": {
+    "concurrently": "^6.2.0"
+  }
+}
