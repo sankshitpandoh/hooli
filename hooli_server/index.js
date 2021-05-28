@@ -1,8 +1,10 @@
 'use strict';
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
+const routes = require('./middleware/router.middleware');
 
 const app = new Koa();
+routes.workOnRoutes(app);
 
 app.use(bodyParser({
     enableTypes: ['text', 'json']
