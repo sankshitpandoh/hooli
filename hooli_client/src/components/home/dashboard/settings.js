@@ -1,13 +1,13 @@
 import React from 'react';
 
-class settings extends React.Component {
+class Settings extends React.Component {
     render() {
         return (
             <>
-                settings
+                Settings idhar
             </>
         )
     }
 }
 
-export default settings;
+export default Settings;

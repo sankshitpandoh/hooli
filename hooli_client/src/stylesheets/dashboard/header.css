@@ -1,0 +1,35 @@
+.main-cont{
+    background-color: #2F2F2F;
+    height: 5vh;
+    width: 100vw;
+}
+.main-cont .left-side-container{
+
+}
+.main-cont .left-side-container figure{
+    max-width: 100px;
+}
+.main-cont .left-side-container figure img{
+    max-width: 100%;
+}
+.main-cont .left-side-container i{
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.main-cont .right-side-container {
+
+}
+
+.main-cont .right-side-container button{
+    background-color: #2F2F2F;
+    color: #D2F898;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+.main-cont .right-side-container button:hover{
+    color: #fff;
+    border-bottom: 1px solid #D2F898;
+}

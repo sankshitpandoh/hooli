@@ -1,0 +1,18 @@
+.list-item i {
+    font-size: 30px;
+}
+.list-item {
+    font-size: 18px;
+    background-color: #FCFCFC;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+.list-item:hover {
+    background-color: #D2F898;
+    border-bottom: 1px solid #FCFCFC;
+    /* color: #FCFCFC; */
+}
+.list-item span {
+    font-family: 'Montserrat-Regular';
+}

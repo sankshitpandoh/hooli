@@ -2,7 +2,7 @@ import axios from "axios";
 import {end_points} from '../config/endPoints';
 
 export const logIn = (data) => {
-    return function(dispatch, getState) {
+    return function(dispatch) {
         try {
             let url = data.superLogin ? end_points.superLogin : end_points.login;
             axios.post(url, {
@@ -10,7 +10,7 @@ export const logIn = (data) => {
                 password: data.password
             }).then((res) => {
                 if (res && res.status === 200 && res.data.token) {
-                    dispatch( {
+                    dispatch({
                         type: "LOG_IN",
                         payload: {
                             userLoggedIn: true, 
@@ -20,7 +20,7 @@ export const logIn = (data) => {
                         }
                     })
                 } else {
-                    dispatch( {
+                    dispatch({
                         type: "LOG_IN",
                         payload: { 
                             userLoggedIn: false, 
@@ -33,7 +33,7 @@ export const logIn = (data) => {
                 }
             }).catch((err) => {
                 console.log("Error in login::::", err);
-                dispatch( {
+                dispatch({
                     type: "LOG_IN",
                     payload: {
                         userLoggedIn: false, 
@@ -45,13 +45,13 @@ export const logIn = (data) => {
                 })
             })
         } catch (err) {
-            return {
+            dispatch({
                 type: "LOG_IN",
                 payload: {
                     showError: true,
                     errorMessage: "Couldn't log you in, please try again." 
                 }
-            }
+            })
         }
     }
 
