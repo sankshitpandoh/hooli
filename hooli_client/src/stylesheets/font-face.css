@@ -1,0 +1,38 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+@font-face{ 
+  font-family: 'Montserrat-Bold';
+  src: 
+  url('../Fonts/Montserrat-Bold.eot') format('eot'), 
+  url('../Fonts/Montserrat-Bold.svg') format('svg'), 
+  url('../Fonts/Montserrat-Bold.ttf') format('ttf'), 
+  url('../Fonts/Montserrat-Bold.woff') format('woff'), 
+  url('../Fonts/Montserrat-Bold.woff2') format('woff2');
+}
+@font-face{ 
+  font-family: 'Montserrat-Light';
+  src: 
+  url('../Fonts/Montserrat-Light.eot') format('eot'), 
+  url('../Fonts/Montserrat-Light.svg') format('svg'), 
+  url('../Fonts/Montserrat-Light.ttf') format('ttf'), 
+  url('../Fonts/Montserrat-Light.woff') format('woff'), 
+  url('../Fonts/Montserrat-Light.woff2') format('woff2');
+}
+@font-face{ 
+  font-family: 'Montserrat-Regular';
+  src: 
+  url('../Fonts/Montserrat-Regular.eot') format('eot'), 
+  url('../Fonts/Montserrat-Regular.svg') format('svg'), 
+  url('../Fonts/Montserrat-Regular.ttf') format('ttf'), 
+  url('../Fonts/Montserrat-Regular.woff') format('woff'), 
+  url('../Fonts/Montserrat-Regular.woff2') format('woff2');
+}
+@font-face{ 
+  font-family: 'OpenSans';
+  src: 
+  url('../Fonts/OpenSans.eot') format('eot'), 
+  url('../Fonts/OpenSans.svg') format('svg'), 
+  url('../Fonts/OpenSans.ttf') format('ttf'), 
+  url('../Fonts/OpenSans.woff') format('woff'), 
+  url('../Fonts/OpenSans.woff2') format('woff2');
+}

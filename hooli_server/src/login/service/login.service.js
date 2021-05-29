@@ -17,36 +17,44 @@ async function userLogin(ctx) {
             };
         } else {
             try {
-                getHashedPassword(ctx.request.body.password).then( async (res) => {
-                    let allowToProceed = await mongoose.connection.db.collection("users").find({
-                        username: ctx.request.body.username,
-                        password: res.hashedString
-                    }).toArray();
-                    if (allowToProceed && allowToProceed.length > 0) {
-                        let authToken = getToken(64);
-                        // TO DO::::
-                        // ::::::
-                        // store auth token in db for verfy sesisons
-                        ctx.response.status = 200;
+                // getHashedPassword(ctx.request.body.password).then( async (res) => {
+                //     let allowToProceed = await mongoose.connection.db.collection("users").find({
+                //         username: ctx.request.body.username,
+                //         password: res.hashedString
+                //     }).toArray();
+                //     if (allowToProceed && allowToProceed.length > 0) {
+                //         let authToken = getToken(64);
+                //         // TO DO::::
+                //         // ::::::
+                //         // store auth token in db for verfy sesisons
+                //         ctx.response.status = 200;
+                //         ctx.response.body = {
+                //             message: "Success",
+                //             token: authToken
+                //         };
+                //     } else {
+                //         ctx.response.status = 401;
+                //         ctx.response.body = {
+                //             message: "Invalid Username or Password"
+                //         };
+                //     }
+                // }).catch((err) => {
+                //     console.log("Something went wrong in hashing the password", err);
+                //     ctx.response.status = 500;
+                //     ctx.response.body = {
+                //         message: "Internal Server Error"
+                //     };
+                // })
+                ctx.response.status = 200;
                         ctx.response.body = {
                             message: "Success",
-                            token: authToken
+                            token: "authToken",
+                            userData: {
+                                name: "dummy name"
+                            }
                         };
-                    } else {
-                        ctx.response.status = 401;
-                        ctx.response.body = {
-                            message: "Invalid Username or Password"
-                        };
-                    }
-                }).catch((err) => {
-                    console.log("Something went wrong in hashing the password", err);
-                    ctx.response.status = 500;
-                    ctx.response.body = {
-                        message: "Internal Server Error"
-                    };
-                })
             } catch (err) {
-                console.log("Something went wrong");
+                console.log("Something went wrong in user Login", err);
                 ctx.response.status = 500;
                 ctx.response.body = {
                     message: "Internal Server Error"

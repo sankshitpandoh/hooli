@@ -1,0 +1,57 @@
+.log-in{
+    height: 100vh;
+}
+.log-in .login-art-container{
+    background: url('https://raw.githubusercontent.com/sankshitpandoh/curly-enigma-Ecommerce/master/client/src/Images/loginArt.jpg') center no-repeat;
+    height: 100vh;  
+    width: 100%;
+    transition: 0.5s all;
+}
+.log-in .log-in-error{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,0,0,0.85);
+    color: #fff;
+    font-family: "OpenSans";
+}
+.log-in .log-in-container{
+    position: relative;
+    height: 100vh;  
+}
+.log-in .log-in-container span input{
+    border: 0;
+    background-color: transparent;
+    border-bottom: 2px solid #000; 
+    font-family: 'Montserrat-Regular';
+    font-weight: 300;
+}
+.log-in .log-in-container span input::placeholder{
+    opacity: 0.35;
+    color: #444;
+}
+.log-in .log-in-container .submit-button{
+    border: 0;
+    background-color: #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s all;
+    color: #fff;
+    font-family: 'Montserrat-Regular';
+    box-shadow: 0px 11px 9px -10px rgba(0,0,0,0.75);
+    transition: 0.25s ease-in-out;
+}
+.log-in .log-in-container .submit-button:hover{
+    box-shadow: 0px 0px 0px -0px rgba(0,0,0,0.75);
+}
+.log-in form h2{   
+    font-family: 'Montserrat-Bold';
+    color: #11152E;
+}
+.log-in form span{
+    font-family: 'Montserrat-Regular';
+}
+.log-in form span input{
+    font-family: 'Montserrat-Light';
+}
