@@ -29,10 +29,7 @@ async function uploadBulk(ctx) {
                             }
                         }
                         let dataToPush = [];
-                        console.log(uniqueUsers.length)
-                        console.log(uniqueUsers)
                         uniqueUsers.forEach((data, index) => {
-                            console.log(123)
                             let name = data.split(" ");
                             let userObj = {};
                             console.log(name)
@@ -41,21 +38,23 @@ async function uploadBulk(ctx) {
                             userObj.age = name[2];
                             let activityObj = ctx.request.body.data.filter((usrData, idx) => {
                                 if (usrData && usrData["First Name"] == userObj.firstName && usrData["Last Name"] == userObj.lastName && usrData["Age"] == userObj.age) {
-                                    return {
-                                        date: usrData["Date"],
-                                        hospital: usrData["Hospital"],
-                                        admitted: usrData["Admitted"] ? true : false,
-                                        visit: usrData["Visit"] ? true : false,
-                                        reason: usrData["Reason"],
-                                        paymentMode: usrData["Payment Mode"],
-                                        amountPaid: usrData["Amount Paid"],
-                                    }
+                                    return{};
+                                }
+                            }).map((usrData) => {
+                                return {
+                                    date: usrData["Date"],
+                                    hospital: usrData["Hospital"],
+                                    admitted: usrData["Admitted"] ? true : false,
+                                    visit: usrData["Visit"] ? true : false,
+                                    reason: usrData["Reason"],
+                                    paymentMode: usrData["Payment Mode"],
+                                    amountPaid: usrData["Amount Paid"],
                                 }
                             });
                             userObj.activity = activityObj;
                             dataToPush.push(userObj);
                         })
-                        console.log(dataToPush)
+                        console.log("dataToPush ")
                         await mongoose.connection.db.collection("patientsData").insertMany(
                             dataToPush,
                         )
