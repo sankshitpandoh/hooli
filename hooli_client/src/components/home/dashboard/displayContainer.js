@@ -9,16 +9,17 @@ class DisplayContainer extends React.Component {
     getComponent = () => {
         let urlPath = this.props.data.location.pathname;
         urlPath = urlPath.split("/home/");
+        console.log(urlPath[1])
         if (pageMapping.includes(urlPath[1])) {
             switch(urlPath[1]) {
-                case "settings":
-                    return <Settings />
-                case "patientsDsiplay":
+                case "dashboard":
+                    return <h1>Dashboard</h1>
+                case "patientsDisplay":
                     return <AllPatients />
                 case "addPatient":
                     return <NewPatient />
                 default:
-                    return <h1>Dashboard</h1>
+                    return <Settings />
             }
         } else {
             this.props.data.history.push("/notFound")

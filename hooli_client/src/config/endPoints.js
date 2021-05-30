@@ -9,7 +9,8 @@ let end_points = {
     verifySession: `/api/login/verify`,
     logOut: `/user/logout`,
     uploadBulkPatients: `/api/patients/uploadBulk`,
-    uploadSignlePatient: `/api/patients/uploadSingle` 
+    uploadSignlePatient: `/api/patients/uploadSingle`,
+    getPatients: `/api/patients/getPatients`
 }
 
 module.exports = {

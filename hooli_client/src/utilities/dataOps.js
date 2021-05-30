@@ -46,8 +46,37 @@ const uploadPatients = (data) => {
     })
 }
 
+const getPatients = (data) => {
+    return new Promise ((resolve, reject) => {
+        try {
+            let config = {
+                headers: {
+                    'Authorization': data.authToken || "",
+                    'Content-type': 'application/json'
+                }
+            };
+            axios.post(end_points.getPatients, {
+                page: data.page
+            }, config).then((res) => {
+                if (res && res.status === 200 && res.data && res.data.usersList ) {
+                    resolve({success: true, usersList: res.data.usersList});
+                } else {
+                    reject({success: false});
+                }
+            }).catch((err) => {
+                console.log("Error in getting patients data::::", err);
+                reject({success: false});
+            })
+        } catch (err) {
+            console.log("Error in getting patients data::::", err);
+            reject({success: false});
+        }
+    })
+}
+
 export {
     cleanUpdata,
-    uploadPatients
+    uploadPatients,
+    getPatients
 
 }
