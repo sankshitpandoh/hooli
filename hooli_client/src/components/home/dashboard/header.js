@@ -9,7 +9,7 @@ function MainHeader (props) {
                 <div className="left-side-container d-flex align-items-center">
                     <i className="fa fa-list mr-5" onClick={props.toggleMenu}></i>
                     <figure>
-                        <img src={"https://lh3.googleusercontent.com/proxy/Vmr7kq1xoGbntIxb3mWJY1O-FSEWRqqcNmizMTJifnE5QvYQwzVqYnAfQn8SCNJir4SWYsvpMAX0-t8rqZUTqp55hf9b3qEehLLmA7zHqgZYxg8aoEevwe_cfeVigSj-EF0tXuQO"} alt="hooli_logo" />
+                        <img src={"https://lh3.googleusercontent.com/proxy/KuhwouLYBGbH7wSkquaEy6nUHLrOWLRTZ8MiZQ_SdzHUoDtHWU5MTbgLcV4uj5zKrzjFxfcteocku3bEBs3VqCH_AF5iZyd3NxcaE6aPntABkPNUrdHQ_ZbGPZjo64TwrPmkTM5_"} alt="hooli_logo" />
                     </figure>
                 </div>
                 <div className="right-side-container">

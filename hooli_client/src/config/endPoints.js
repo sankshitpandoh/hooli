@@ -5,8 +5,9 @@ if(!host.endsWith("/")){
 
 let end_points = {
     login: `/api/login/user`,
-    superLogin: `/login/super`,
-    logOut: `/user/logout`
+    superLogin: `/api/login/super`,
+    verifySession: `/api/login/verify`,
+    logOut: `/user/logout`,
 }
 
 module.exports = {

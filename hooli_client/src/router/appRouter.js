@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch, Link } from 'react-router-dom';
 import Store from '../store/store.js';
 import {Provider} from 'react-redux';
 import logInDisplay from '../components/logIn/logInDisplay.js';
-import dashboard from '../components/home/dashboard/dashboard.js';
+import Home from '../components/home/dashboard/home.js';
 class appRouter extends React.Component {
     render() {
         return (
@@ -18,12 +18,8 @@ class appRouter extends React.Component {
                         </Route>
                         <Route path = "/login" component = {logInDisplay} />
                         <Route path = "/super" component = {logInDisplay} />
-                        <Route path = "/home" exact>
-                            {
-                                <Redirect to="/home/dashboard" component = {dashboard} exact />
-                            }
-                        </Route>
-                        <Route path = "/home/dashboard" component = {dashboard} exact/>
+                        <Route path = "/home/" component = {Home} />
+                        <Route path = "*" component = {Home} />
                     </Switch>
                 </BrowserRouter>
             </Provider>

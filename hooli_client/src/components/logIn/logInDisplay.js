@@ -66,7 +66,6 @@ class logInDisplay extends React.Component {
             this.state.password.trim() !== "" ?
              (() => {
                 this.props.logIn({username: this.state.username, password: this.state.password});
-
              })()
              :
              this.setState({
@@ -124,7 +123,7 @@ class logInDisplay extends React.Component {
                                 <input className="py-1 pl-0 pr-1" type="password" placeholder="Password here" value={this.state.password} onChange={this.handlePassword} />
                             </span>
 
-                            <input className="mr-auto mb-4 w-50 px-2 py-1 submit-button" type="submit" value="Log In" />
+                            <input className="mr-auto mb-4 w-50 px-2 py-2 submit-button" type="submit" value="Log In" />
                         </form>
                     </div>
                 </div>

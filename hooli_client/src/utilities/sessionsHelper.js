@@ -1,11 +1,11 @@
 import axios from "axios";
 import {end_points} from '../config/endPoints';
 
-export const verifySession = (prop) => {
+const verifySession = (prop) => {
     return new Promise ((resolve, reject) => {
-        if (prop && prop.accessToken) {
+        if (prop) {
             axios.post(end_points.verifySession, {
-                accessToken: prop.accessToken
+                accessToken: prop
             }).then((res) => {
                 if (res.status === 200 && res.data.sessionLive) {
                     resolve({
@@ -28,4 +28,7 @@ export const verifySession = (prop) => {
             })
         }
     })
+}
+export {
+    verifySession
 }
