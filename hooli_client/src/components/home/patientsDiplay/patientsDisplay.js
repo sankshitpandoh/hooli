@@ -1,6 +1,7 @@
 import React from 'react';
 import SinglePatienItem from './singlePatientitem.js';
 import {getPatients} from '../../../utilities/dataOps.js';
+import ExpandedPatientData from './expandedPatient.js'
 import "../../../stylesheets/patients/patientDisplay.css";
 
 class AllPatients extends React.Component {
@@ -11,6 +12,8 @@ class AllPatients extends React.Component {
         usersList: [],
         moreData: false,
         showLoader: false,
+        expandPatient: false,
+        patientData: {}
 
     }
     componentDidMount() {
@@ -65,9 +68,23 @@ class AllPatients extends React.Component {
         })
     }
 
+    expandSinglePatient = (data) => {
+        this.setState({
+            expandPatient: true,
+            patientData: data
+        })
+    }
+
+    closeExpandedPatient = () => {
+        this.setState({
+            expandPatient: false,
+            patientData:{}
+        })
+    }
+
     render() {
         let usersListProcessed = this.state.usersList.map((data, index) => {
-            return <SinglePatienItem data={data} key={"SinglepatientItem_" + index} />
+            return <SinglePatienItem expandSinglePatient={this.expandSinglePatient} data={data} key={"SinglepatientItem_" + index} />
         })
         return (
             <div className="p-3">
@@ -90,11 +107,12 @@ class AllPatients extends React.Component {
                 }
                 {/* <input type="text" disabled={this.state.showError || this.state.usersList.length < 1} placeholder="Serach by Patient Name" className="p-2 w-25 mb-4"/> */}
                 {
-                    this.state.showError ?
-                        <p className="text-center">
-                            {this.state.errorMessage}
-                        </p>
-                    :
+                    !this.state.expandPatient ?
+                        this.state.showError ?
+                            <p className="text-center">
+                                {this.state.errorMessage}
+                            </p>
+                        :
                         this.state.usersList.length < 1 ?
                             <p className="text-center">
                                 You have no patients data in this account.
@@ -109,6 +127,8 @@ class AllPatients extends React.Component {
                             </div>
                         </div>                       
                         </>
+                    :
+                    <ExpandedPatientData data={this.state.patientData} closeExpandedPatient={this.closeExpandedPatient}/>
                 }
             </div>
         )

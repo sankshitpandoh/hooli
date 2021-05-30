@@ -28,7 +28,7 @@ function SinglePatienItem (props) {
         </div> 
     })
     return (
-        <div className="d-flex align-items-center single-pat-item m-4">
+        <div className="d-flex align-items-center single-pat-item m-4" onClick={() => props.expandSinglePatient(props.data)}>
             <div className="d-flex align-items-center w-100">
             <figure className="d-flex align-items-center">
                <img className="w-100" src={randomAvataar({name: props.data.firstName + " " + props.data.lastName})} alt="avatar" />

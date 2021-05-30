@@ -97,7 +97,7 @@ class Home extends React.Component {
         }
         return (
             <>
-                <MainHeader toggleMenu={this.toggleMenu} openComp={this.openComp} />
+                <MainHeader handlePathChange={this.handlePathChange} toggleMenu={this.toggleMenu} openComp={this.openComp} />
                 <div className="d-flex">
                     <div className="col-2 p-0" style={ !this.state.showMenu ? {width: '0px', maxWidth: '0px', overflow: 'hidden', transition: '0.25s ease-in-out'} : {transition: '0.25s ease-in-out'}}>
                         <MenuContainer currentPage={this.state.currentPage} handlePathChange={this.handlePathChange}/>
