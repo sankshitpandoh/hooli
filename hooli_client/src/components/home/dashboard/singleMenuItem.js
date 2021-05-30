@@ -6,7 +6,7 @@ function SingleMenutItem (props) {
     return (
         <div 
             className="d-flex align-items-center justify-content-between p-2 list-item" 
-            style={props.activeData ? {backgroundColor: "#FCFCFC", cursor: "normal"}: {}}
+            style={props.activeData ? {backgroundColor: "#FCFCFC", cursor: "unset"}: {}}
             onClick={() => {!props.activeData && props.handlePathChange(props.data.path)}}
         >
             <i className={props.data.icon}/>

@@ -59,7 +59,7 @@ const getPatients = (data) => {
                 page: data.page
             }, config).then((res) => {
                 if (res && res.status === 200 && res.data && res.data.usersList ) {
-                    resolve({success: true, usersList: res.data.usersList});
+                    resolve({success: true, usersList: res.data.usersList, moreData: res.data.moreData || false});
                 } else {
                     reject({success: false});
                 }

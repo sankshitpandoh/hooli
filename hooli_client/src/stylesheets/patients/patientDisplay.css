@@ -1,35 +1,21 @@
-.upload-container {
-    position: relative;
-    overflow: hidden;
-    font-family: 'Montserrat-Regular' !important;
-    height: 80vh;
+.nav-btn {
+    cursor: pointer;
+    background-color: #D2F898;
+    border: 1px solid #000;
+    transition: 0.25s ease-in-out;
+}
+.nav-btn:disabled {
+    background-color: #FCFCFC !important;
+    color: grey !important;
+    border: 1px solid #FCFCFC !important;
+    cursor:unset;
+}
+.nav-btn:hover {
+    border: 1px solid #D2F898;
+    background-color: #000;
+    color: #D2F898
 }
 
-.upload-container .message-indicator {
-    position: absolute;
-    top: 2%;
-    right: -1000%;
-    width: 300px;
-    height: 50px;
-    color: #fff;
-    transition: 0.5s ease-in-out;
-    font-family: 'OpenSans';
-    
-}
-.upload-container .success{
-    background-color: green !important;
-    right: 2%;
-
-}
-
-.upload-container .failure{
-    background-color: red;
-    right: 2%;
-}
-.upload-container-file{
-    height: 75vh;
-    background-color: #F6F930;
-}
 .loader-container {
     position: fixed;
     top: 0;

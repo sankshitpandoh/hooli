@@ -1,6 +1,7 @@
 import React from 'react';
 import SinglePatienItem from './singlePatientitem.js';
 import {getPatients} from '../../../utilities/dataOps.js';
+import "../../../stylesheets/patients/patientDisplay.css";
 
 class AllPatients extends React.Component {
     state = {
@@ -9,6 +10,7 @@ class AllPatients extends React.Component {
         showError: false,
         usersList: [],
         moreData: false,
+        showLoader: false,
 
     }
     componentDidMount() {
@@ -16,26 +18,33 @@ class AllPatients extends React.Component {
     }
 
     getPatientsData = () => {
-        getPatients({
-            page: this.state.currentPage,
-            authToken: sessionStorage.getItem("authToken")
-        }).then((res) => {
-            if (res.success && res.usersList && res.usersList.length > 0) {
+        this.setState({
+            showLoader: true
+        }, () => {
+            getPatients({
+                page: this.state.currentPage,
+                authToken: sessionStorage.getItem("authToken")
+            }).then((res) => {
+                if (res.success && res.usersList && res.usersList.length > 0) {
+                    this.setState({
+                        showError: false,
+                        usersList: res.usersList,
+                        moreData: res.moreData || false.page,
+                        showLoader: false
+                    })
+                } else {
+                    this.setState({
+                        showError: true,
+                        errorMessage: "You have no patients data in this account.",
+                        showLoader: false
+                    })
+                }
+            }).catch((err) => {
                 this.setState({
-                    showError: false,
-                    usersList: res.usersList,
-                    moreData: res.moreData || false
-                })
-            } else {
-                this.setState({
+                    showLoader: false,
                     showError: true,
-                    errorMessage: "You have no patients data in this account."
+                    errorMessage: "Unable to get patients data. Please try again!"
                 })
-            }
-        }).catch((err) => {
-            this.setState({
-                showError: true,
-                errorMessage: "Unable to get patients data. Please try again!"
             })
         })
     }
@@ -63,6 +72,22 @@ class AllPatients extends React.Component {
         return (
             <div className="p-3">
                 <h2 className="mb-4">Patient Records</h2>
+                {
+                    this.state.showLoader &&
+                    <div className="loader-container d-flex align-items-center justify-content-center">
+                        <div className="loader mr-3">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                }
                 {/* <input type="text" disabled={this.state.showError || this.state.usersList.length < 1} placeholder="Serach by Patient Name" className="p-2 w-25 mb-4"/> */}
                 {
                     this.state.showError ?
@@ -76,11 +101,11 @@ class AllPatients extends React.Component {
                             </p>
                         :
                         <>
-                        <div className="d-flex flex-wrap">
+                        <div className="d-flex flex-wrap justify-content-center align-items-center">
                             {usersListProcessed}
-                            <div className="d-flex align-items-center w-100 justify-content-center">
-                                <button onClick={this.prevPage} disabled={this.state.currentPage < 2}>Prev</button>
-                                <button onClick={() => this.nextPage()} disabled={!this.state.moreData}>Next</button>
+                            <div className="mt-5 d-flex align-items-center w-100 justify-content-center">
+                                <button className="mr-2 p-2 nav-btn" onClick={this.prevPage} disabled={this.state.currentPage < 2}>Prev</button>
+                                <button className="ml-2 p-2 nav-btn" onClick={() => this.nextPage()} disabled={!this.state.moreData}>Next</button>
                             </div>
                         </div>                       
                         </>

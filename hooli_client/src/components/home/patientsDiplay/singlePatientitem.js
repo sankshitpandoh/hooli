@@ -15,10 +15,10 @@ const fieldsToDisplay = [
         keyName: "Age",
         keyValue: "age"
     },
-    // {
-    //     keyName: "Address",
-    //     keyValue:
-    // } 
+    {
+        keyName: "Address",
+        keyValue: "address"
+    } 
 ];
 
 function SinglePatienItem (props) {
@@ -28,10 +28,10 @@ function SinglePatienItem (props) {
         </div> 
     })
     return (
-        <div className="d-flex align-items-center single-pat-item mr-5 mb-5">
-            <div className="d-flex align-items-center w-50">
+        <div className="d-flex align-items-center single-pat-item m-4">
+            <div className="d-flex align-items-center w-100">
             <figure className="d-flex align-items-center">
-               <img className="w-100" src={randomAvataar({name: props.data.firstName})} alt="avatar" />
+               <img className="w-100" src={randomAvataar({name: props.data.firstName + " " + props.data.lastName})} alt="avatar" />
             </figure>
             <div className="d-flex flex-column w-25 justify-content-center">
                 {items}

@@ -24,8 +24,8 @@ async function uploadBulk(ctx) {
                     try {
                         let uniqueUsers = [];
                         for (let i = 0; i < ctx.request.body.data.length; i++) {
-                            if (!uniqueUsers.includes(ctx.request.body.data[i]["First Name"].trim() + " " + ctx.request.body.data[i]["Last Name"].trim() + " " + ctx.request.body.data[i]["Age"].trim())) {
-                                uniqueUsers.push(ctx.request.body.data[i]["First Name"].trim() + " " + ctx.request.body.data[i]["Last Name"].trim() + " " + ctx.request.body.data[i]["Age"].trim())
+                            if (!uniqueUsers.includes(ctx.request.body.data[i]["First Name"].trim() + " " + ctx.request.body.data[i]["Last Name"].trim() + " " + ctx.request.body.data[i]["Age"].trim() + " " + ctx.request.body.data[i]["Address"].trim())) {
+                                uniqueUsers.push(ctx.request.body.data[i]["First Name"].trim() + " " + ctx.request.body.data[i]["Last Name"].trim() + " " + ctx.request.body.data[i]["Age"].trim() + " " + ctx.request.body.data[i]["Address"].trim())
                             }
                         }
                         let dataToPush = [];
@@ -36,6 +36,7 @@ async function uploadBulk(ctx) {
                             userObj.firstName = name[0];
                             userObj.lastName = name[1];
                             userObj.age = name[2];
+                            userObj.address = name[3];
                             let activityObj = ctx.request.body.data.filter((usrData, idx) => {
                                 if (usrData && usrData["First Name"] == userObj.firstName && usrData["Last Name"] == userObj.lastName && usrData["Age"] == userObj.age) {
                                     return{};
@@ -111,7 +112,7 @@ async function getPatients(ctx) {
                         ).toArray();
                         let totalCount = await mongoose.connection.db.collection("patientsData").countDocuments();
                         let moreData = false;
-                        if ((totalCount - ((ctx.request.body.page - 1) * 6) + 6) > 0) {
+                        if ((totalCount - (((ctx.request.body.page - 1) * 6) + patientsData.length)) > 0) {
                             moreData = true;
                         }
                         ctx.response.status = 200;
