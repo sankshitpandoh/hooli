@@ -8,6 +8,7 @@ const router = new Router({
 
 router.post("/uploadBulk", document.uploadBulk);
 router.post("/uploadSingle", document.singleUpload);
+router.post("/getPatients", document.getPatients);
 
 module.exports =
     router;

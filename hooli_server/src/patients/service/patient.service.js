@@ -87,6 +87,61 @@ async function uploadBulk(ctx) {
 }
 
 
+async function getPatients(ctx) {
+    if (ctx && ctx.request && ctx.request.body) {
+        if (!ctx.request.header || !ctx.request.header.authorization ) {
+            ctx.response.status = 401;
+            ctx.response.body = {
+                message: "UnAuthorized"
+            };
+        } else {
+            let tokenValid = await authCheck({accessToken: ctx.request.header.authorization});
+            if (tokenValid && tokenValid.valid) {
+                if (!ctx.request.body.page) {
+                    ctx.response.status = 400;
+                    ctx.response.body = {
+                        message: "Data to upload cannot be empty"
+                    };
+                } else {
+                    try {
+                        //Sending only 6 entries in response else front end UI will break
+                        let patientsData = await mongoose.connection.db.collection("patientsData").find(
+                            {},
+                            { skip: (ctx.request.body.page - 1) * 6, limit: 6 }
+                        ).toArray();
+                        let totalCount = await mongoose.connection.db.collection("patientsData").countDocuments();
+                        let moreData = false;
+                        if ((totalCount - ((ctx.request.body.page - 1) * 6) + 6) > 0) {
+                            moreData = true;
+                        }
+                        ctx.response.status = 200;
+                        ctx.response.body = {
+                            usersList: patientsData,
+                            moreData: moreData
+                        }
+                    } catch (err) {
+                        console.log("Something went wrong in getting patients data", err);
+                        ctx.response.status = 500;
+                        ctx.response.body = {
+                            message: "Internal Server Error"
+                        };
+                    }
+                }
+            } else {
+                ctx.response.status = 401;
+                ctx.response.body = {
+                    message: "UnAuthorized"
+                };
+            }
+        }
+    } else {
+        ctx.response.status = 400;
+        ctx.response.body = {
+            message: "Malformed Request"
+        };
+    }
+}
+
 async function singleUpload(ctx) {
     //TO DO:::
     // HANDLE SINGLE UPLOAD
@@ -95,4 +150,5 @@ async function singleUpload(ctx) {
 module.exports = {
     uploadBulk,
     singleUpload,
+    getPatients
 }
