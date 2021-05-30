@@ -8,6 +8,8 @@ let end_points = {
     superLogin: `/api/login/super`,
     verifySession: `/api/login/verify`,
     logOut: `/user/logout`,
+    uploadBulkPatients: `/api/patients/uploadBulk`,
+    uploadSignlePatient: `/api/patients/uploadSingle` 
 }
 
 module.exports = {

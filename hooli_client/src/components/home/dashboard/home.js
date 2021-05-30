@@ -46,23 +46,36 @@ class Home extends React.Component {
         alert(x)
     }
     componentDidMount () {
-        // if (this.props.accessToken) {
-        //     verifySession(this.props.accessToken).then((res) => {
-        //         console.log(res)
-        //         if (res && res.sessionLive) {
-        //             console.log("Session Verified");
-        //         } else {
-        //             console.log("Session Verification failed");
-        //             this.props.history.push("/login");
-        //         }
-        //     }).catch((err) => {
-        //         console.log("Session Verification failed", err);
-        //         this.props.history.push("/login");
-        //     })
-        // } else {
-        //     console.log("Session Verification failed");
-        //     this.props.history.push("/login");
-        // }
+        if (this.props.accessToken) {
+            verifySession(this.props.accessToken).then((res) => {
+                console.log(res)
+                if (res && res.sessionLive) {
+                    console.log("Session Verified");
+                } else {
+                    console.log("Session Verification failed");
+                    this.props.history.push("/login");
+                }
+            }).catch((err) => {
+                console.log("Session Verification failed", err);
+                this.props.history.push("/login");
+            })
+        } else if (sessionStorage.getItem("authToken")) {
+            verifySession(sessionStorage.getItem("authToken")).then((res) => {
+                console.log(res)
+                if (res && res.sessionLive) {
+                    console.log("Session Verified");
+                } else {
+                    console.log("Session Verification failed");
+                    this.props.history.push("/login");
+                }
+            }).catch((err) => {
+                console.log("Session Verification failed", err);
+                this.props.history.push("/login");
+            })
+        } else {
+            console.log("Session Verification failed");
+            this.props.history.push("/login");
+        }
     }
 
     componentDidUpdate(prevProps) {

@@ -10,6 +10,7 @@ export const logIn = (data) => {
                 password: data.password
             }).then((res) => {
                 if (res && res.status === 200 && res.data.token) {
+                    sessionStorage.setItem("authToken", res.data.token);
                     dispatch({
                         type: "LOG_IN",
                         payload: {

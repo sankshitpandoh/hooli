@@ -3,13 +3,13 @@
 }
 .list-item {
     font-size: 18px;
-    background-color: #FCFCFC;
     border-bottom: 1px solid #000;
+    background-color: #D2F898;
     cursor: pointer;
     transition: 0.25s ease-in-out;
 }
 .list-item:hover {
-    background-color: #D2F898;
+    background-color: #F6F930 ;
     border-bottom: 1px solid #FCFCFC;
     /* color: #FCFCFC; */
 }
