@@ -42,7 +42,7 @@ class AllPatients extends React.Component {
 
     nextPage = () => {
         this.setState({
-            currentPage: this.setState.currentPage + 1
+            currentPage: this.state.currentPage + 1
         }, () => {
             this.getPatientsData();
         })
@@ -50,7 +50,7 @@ class AllPatients extends React.Component {
 
     prevPage = () => {
         this.setState({
-            currentPage: this.setState.currentPage - 1
+            currentPage: this.state.currentPage - 1
         }, () => {
             this.getPatientsData();
         })
@@ -75,9 +75,15 @@ class AllPatients extends React.Component {
                                 You have no patients data in this account.
                             </p>
                         :
+                        <>
                         <div className="d-flex flex-wrap">
                             {usersListProcessed}
-                        </div>
+                            <div className="d-flex align-items-center w-100 justify-content-center">
+                                <button onClick={this.prevPage} disabled={this.state.currentPage < 2}>Prev</button>
+                                <button onClick={() => this.nextPage()} disabled={!this.state.moreData}>Next</button>
+                            </div>
+                        </div>                       
+                        </>
                 }
             </div>
         )
