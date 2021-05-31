@@ -1,0 +1,16 @@
+.data-display {
+    background-color: #2F2F2F;
+    font-size: 70px;
+    color: #F6F930;
+    border-radius: 10px;
+    border: 2px solid #F6F930
+}
+.data-display p{
+    font-size: 20px;
+    color: #fcfcfc;
+}
+.chart-cont {
+    border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid #F6F930;
+}

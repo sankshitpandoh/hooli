@@ -104,10 +104,46 @@ const deletePatient = (data, token) => {
     })
 }
 
+const chartData = (token) => {
+    return new Promise ((resolve, reject) => {
+        try {
+            let config = {
+                headers: {
+                    'Authorization': token || "",
+                    'Content-type': 'application/json'
+                }
+            };
+            axios.post(end_points.getChartData,{}, config).then((res) => {
+                if (res && res.status === 200 && res.data.ageData ) {
+                    resolve(
+                        {
+                            success: true, 
+                            ageData: res.data.ageData || [], 
+                            modeOfPayment: res.data.modeOfPayment || [],
+                            totalPatients: res.data.totalUsers,
+                            totalMoney: res.data.totalMoney,
+                        
+                        });
+                } else {
+                    reject({success: false});
+                }
+
+            }).catch((err) => {
+                console.log("Error in getting chart data::::::", err);
+                reject({success: false});
+            })
+        } catch (err) {
+            console.log("Error in getting chart data::::::", err);
+            reject({success: false});
+        }
+    })
+}
+
 export {
     cleanUpdata,
     uploadPatients,
     getPatients,
-    deletePatient
+    deletePatient,
+    chartData
 
 }

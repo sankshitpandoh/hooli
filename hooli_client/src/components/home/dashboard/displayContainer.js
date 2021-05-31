@@ -2,6 +2,7 @@ import React from "react";
 import AllPatients from '../patientsDiplay/patientsDisplay.js';
 import NewPatient from '../addPatients/newPatient.js';
 import Settings from './settings.js';
+import MainDashboard from './mainDashboard'
 
 const pageMapping = ["dashboard",  "patientsDisplay","addPatient",  "settings"];
 class DisplayContainer extends React.Component {
@@ -13,7 +14,7 @@ class DisplayContainer extends React.Component {
         if (pageMapping.includes(urlPath[1])) {
             switch(urlPath[1]) {
                 case "dashboard":
-                    return <h1>Dashboard</h1>
+                    return <MainDashboard />
                 case "patientsDisplay":
                     return <AllPatients />
                 case "addPatient":

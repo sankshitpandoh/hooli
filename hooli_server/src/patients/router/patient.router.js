@@ -10,6 +10,7 @@ router.post("/uploadBulk", document.uploadBulk);
 router.post("/uploadSingle", document.singleUpload);
 router.post("/getPatients", document.getPatients);
 router.post("/deletePatient", document.deletePatient);
+router.post("/getChartData", document.getChartData);
 
 module.exports =
     router;

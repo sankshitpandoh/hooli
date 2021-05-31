@@ -194,6 +194,79 @@ async function deletePatient (ctx) {
 }
 
 
+async function getChartData(ctx) {
+    if (ctx && ctx.request) {
+        if (!ctx.request.header || !ctx.request.header.authorization ) {
+            ctx.response.status = 401;
+            ctx.response.body = {
+                message: "UnAuthorized"
+            };
+        } else {
+            let tokenValid = await authCheck({accessToken: ctx.request.header.authorization});
+            if (tokenValid && tokenValid.valid) {
+                try {
+                    let usersData = await mongoose.connection.db.collection("patientsData").find({}).toArray();
+                    let ageData = [];
+                    let ageCount = {};
+                    let totalMoney= 0;
+                    let paymentMode = {
+                        Cash: 0,
+                        Card: 0
+                    }
+                    usersData.forEach((data) => {
+                        if (!ageData.includes(data.age)) {
+                            ageData.push(data.age);
+                            ageCount[data.age] = 1;
+                        } else {
+                            ageCount[data.age] = ageCount[data.age] + 1 
+                        }
+                        data.activity.forEach((res) => {
+                            if(res.amountPaid) {
+                                totalMoney += parseInt(res.amountPaid)
+                            }
+                            if (res.paymentMode) {
+                                paymentMode[res.paymentMode] = paymentMode[res.paymentMode] + 1 
+                            }
+                        })
+                    })
+                    ageData = [];
+                    for (let keys in ageCount) {
+                        ageData.push([keys.toString() , ageCount[keys]])
+                    }
+                    let modeOfPayment = [];
+                    for (let i in paymentMode) {
+                        modeOfPayment.push([i.toString() , paymentMode[i]]);
+                    }
+                    ctx.response.status = 200;
+                    ctx.response.body = {
+                        staus: "success",
+                        ageData: ageData,
+                        totalMoney: totalMoney,
+                        modeOfPayment: modeOfPayment,
+                        totalUsers: usersData.length
+                    }
+                } catch (err) {
+                    console.log("Something went wrong in deleting patient", err);
+                    ctx.response.status = 500;
+                    ctx.response.body = {
+                        message: "Internal Server Error"
+                    };
+                }
+            } else {
+                ctx.response.status = 401;
+                ctx.response.body = {
+                    message: "UnAuthorized"
+                };
+            }
+        }
+    } else {
+        ctx.response.status = 400;
+        ctx.response.body = {
+            message: "Malformed Request"
+        };
+    }
+}
+
 async function singleUpload(ctx) {
     //TO DO:::
     // HANDLE SINGLE UPLOAD
@@ -203,5 +276,6 @@ module.exports = {
     uploadBulk,
     singleUpload,
     getPatients,
-    deletePatient
+    deletePatient,
+    getChartData
 }

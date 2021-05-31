@@ -11,7 +11,8 @@ let end_points = {
     uploadBulkPatients: `/api/patients/uploadBulk`,
     uploadSignlePatient: `/api/patients/uploadSingle`,
     getPatients: `/api/patients/getPatients`,
-    deletePatient: `/api/patients/deletePatient`
+    deletePatient: `/api/patients/deletePatient`,
+    getChartData: '/api/patients/getChartData'
 }
 
 module.exports = {
