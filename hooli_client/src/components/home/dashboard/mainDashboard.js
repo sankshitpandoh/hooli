@@ -27,7 +27,7 @@ class MainDashboard extends React.Component {
                 totalPatients: res.totalPatients,
                 totalMoney: res.totalMoney,
                 averageMoney: (parseInt(res.totalMoney) / parseInt(res.totalPatients)),
-                patientsDayData: [['Year', 'Patients'], ...res.patientsDayData]
+                patientsDayData: [['Date', 'Patients'], ...res.patientsDayData]
             })
         }).catch((err) => {
             console.log(err)
@@ -95,12 +95,10 @@ class MainDashboard extends React.Component {
                         loader={<div>Loading Chart...</div>}
                         data={this.state.patientsDayData}
                         options={{
-                            // Material design options
                             chart: {
                             title: 'Patients per day',
                             },
                         }}
-                        // For tests
                         rootProps={{ 'data-testid': '3' }}
                     />
                 </div>

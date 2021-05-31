@@ -6,8 +6,8 @@ function SinglePatientActivity (props) {
             <td>{props.data.reason}</td>
             <td>{props.data.visit ? "Yes" : "No"}</td>
             <td>{props.data.admitted ? "Yes" : "No"}</td>
-            <td>{props.data.paymentMode}</td>
             <td>{props.data.amountPaid}</td>
+            <td>{props.data.paymentMode}</td>
         </tr>
     )
 }
