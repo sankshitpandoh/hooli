@@ -3,9 +3,9 @@ import React from 'react';
 class Settings extends React.Component {
     render() {
         return (
-            <>
-                Settings idhar
-            </>
+            <div className="d-flex p-5">
+                <h3>This page is under comstruction</h3>
+            </div>
         )
     }
 }

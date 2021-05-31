@@ -7,6 +7,21 @@ const authCheck = require('../../../Plugins/authCheck').authCheck;
 const {
     ObjectID
 } = require('mongodb');
+var crypto = require('crypto');
+
+var algorithm = "aes-192-cbc"; 
+var key = crypto.scryptSync(process.env.DEC_KEY, 'salt', 24);;
+const iv = Buffer.alloc(16); // generate different ciphertext everytime
+
+function getEncKey (value) {
+    const cipher = crypto.createCipheriv(algorithm, key, iv);
+    return cipher.update(value, 'utf8', 'hex') + cipher.final('hex');
+}
+
+function getDecKey (value) {
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    return decipher.update(value, 'hex', 'utf8') + decipher.final('utf8')
+}
 
 async function uploadBulk(ctx) {
     if (ctx && ctx.request && ctx.request.body) {
@@ -36,12 +51,12 @@ async function uploadBulk(ctx) {
                             let name = data.split(" ");
                             let userObj = {};
                             console.log(name)
-                            userObj.firstName = name[0];
-                            userObj.lastName = name[1];
+                            userObj.firstName = getEncKey(name[0]); 
+                            userObj.lastName = getEncKey(name[1]);
                             userObj.age = name[2];
                             userObj.address = name[3];
                             let activityObj = ctx.request.body.data.filter((usrData, idx) => {
-                                if (usrData && usrData["First Name"] == userObj.firstName && usrData["Last Name"] == userObj.lastName && usrData["Age"] == userObj.age) {
+                                if (usrData && getEncKey(usrData["First Name"]) == userObj.firstName && getEncKey(usrData["Last Name"]) == userObj.lastName && usrData["Age"] == userObj.age) {
                                     return{};
                                 }
                             }).map((usrData) => {
@@ -56,6 +71,7 @@ async function uploadBulk(ctx) {
                                 }
                             });
                             userObj.activity = activityObj;
+                            console.log(activityObj)
                             dataToPush.push(userObj);
                         })
                         console.log("dataToPush ")
@@ -113,6 +129,10 @@ async function getPatients(ctx) {
                             {},
                             { skip: (ctx.request.body.page - 1) * 6, limit: 6 }
                         ).toArray();
+                        patientsData.forEach((res, index) => {
+                            patientsData[index].firstName = getDecKey(patientsData[index].firstName); 
+                            patientsData[index].lastName = getDecKey(patientsData[index].lastName);
+                        })
                         let totalCount = await mongoose.connection.db.collection("patientsData").countDocuments();
                         let moreData = false;
                         if ((totalCount - (((ctx.request.body.page - 1) * 6) + patientsData.length)) > 0) {
@@ -213,6 +233,8 @@ async function getChartData(ctx) {
                         Cash: 0,
                         Card: 0
                     }
+                    let dateData = [];
+                    let dateCount = {};
                     usersData.forEach((data) => {
                         if (!ageData.includes(data.age)) {
                             ageData.push(data.age);
@@ -227,6 +249,12 @@ async function getChartData(ctx) {
                             if (res.paymentMode) {
                                 paymentMode[res.paymentMode] = paymentMode[res.paymentMode] + 1 
                             }
+                            if (!dateData.includes(res.date)) {
+                                dateData.push(res.date);
+                                dateCount[res.date] = 1;
+                            } else {
+                                dateCount[res.date] = dateCount[res.date] + 1 
+                            }
                         })
                     })
                     ageData = [];
@@ -237,13 +265,18 @@ async function getChartData(ctx) {
                     for (let i in paymentMode) {
                         modeOfPayment.push([i.toString() , paymentMode[i]]);
                     }
+                    let patientsDayData = [];
+                    for (let j in dateCount) {
+                        patientsDayData.push([j.toString() , dateCount[j]])
+                    }
                     ctx.response.status = 200;
                     ctx.response.body = {
                         staus: "success",
                         ageData: ageData,
                         totalMoney: totalMoney,
                         modeOfPayment: modeOfPayment,
-                        totalUsers: usersData.length
+                        totalUsers: usersData.length,
+                        patientsDayData: patientsDayData
                     }
                 } catch (err) {
                     console.log("Something went wrong in deleting patient", err);

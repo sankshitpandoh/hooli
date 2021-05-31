@@ -122,6 +122,7 @@ const chartData = (token) => {
                             modeOfPayment: res.data.modeOfPayment || [],
                             totalPatients: res.data.totalUsers,
                             totalMoney: res.data.totalMoney,
+                            patientsDayData: res.data.patientsDayData
                         
                         });
                 } else {

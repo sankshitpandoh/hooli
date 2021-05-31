@@ -11,7 +11,8 @@ class MainDashboard extends React.Component {
             modeOfPayment: [],
             totalPatients: 0,
             totalMoney: 0,
-            averageMoney: 0
+            averageMoney: 0,
+            patientsDayData: []
     }
 
     componentDidMount() {
@@ -20,12 +21,14 @@ class MainDashboard extends React.Component {
 
     getChartData = () => {
         chartData(sessionStorage.getItem("authToken")).then((res) => {
+            console.log(res)
             this.setState({
                 ageData:[['Age', "People"], ...res.ageData],
                 modeOfPayment:[ ["paymentMode", "people"] ,...res.modeOfPayment],
                 totalPatients: res.totalPatients,
                 totalMoney: res.totalMoney,
-                averageMoney: (parseInt(res.totalMoney) / parseInt(res.totalPatients))
+                averageMoney: (parseInt(res.totalMoney) / parseInt(res.totalPatients)),
+                patientsDayData: [['Year', 'Patients'], ...res.patientsDayData]
             })
         }).catch((err) => {
             console.log(err)
@@ -53,11 +56,11 @@ class MainDashboard extends React.Component {
                         <strong className="mb-3">{this.state.averageMoney}</strong>
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col-6 mb-4">
                     <div className="d-flex justify-content-center align-items-center chart-cont">
                         <Chart
                             width={'100%'}
-                            height={'300px'}
+                            height={'230px'}
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
                             data={this.state.ageData}
@@ -69,11 +72,11 @@ class MainDashboard extends React.Component {
                             />
                     </div>
                 </div>
-                <div className="col-6">
+                <div className="col-6 mb-4">
                     <div className="d-flex justify-content-center align-items-center chart-cont">
                         <Chart
                             width={'100%'}
-                            height={'300px'}
+                            height={'230px'}
                             chartType="PieChart"
                             loader={<div>Loading Chart...</div>}
                             data={this.state.modeOfPayment}
@@ -84,6 +87,23 @@ class MainDashboard extends React.Component {
                             rootProps={{ 'data-testid': '2' }}
                         />  
                     </div>
+                </div>
+                <div className="col-12">
+                    <Chart
+                        width={'100%'}
+                        height={'300px'}
+                        chartType="Bar"
+                        loader={<div>Loading Chart...</div>}
+                        data={this.state.patientsDayData}
+                        options={{
+                            // Material design options
+                            chart: {
+                            title: 'Patients per day',
+                            },
+                        }}
+                        // For tests
+                        rootProps={{ 'data-testid': '3' }}
+                    />
                 </div>
             </div>
         )
