@@ -45,7 +45,7 @@ function ExpandedPatientData (props) {
             <div className="d-flex flex-column w-50 justify-content-end pat-btn-panel">
                 <button onClick={() => {props.closeExpandedPatient()}} className="p-2 mb-5">Go Back</button>
                 <button onClick={() => {props.deletePatient(props.data._id)}} className="p-2 mb-5">Delete Patient</button>
-                <button disabled={true} className="p-2 mb-5">Edit Patient</button>
+                {/* <button disabled={true} className="p-2 mb-5">Edit Patient</button> */}
             </div>
         </div>
         <h4 className="mb-3 mt-4">Patient Activity:</h4>

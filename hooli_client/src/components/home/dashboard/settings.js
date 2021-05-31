@@ -4,7 +4,7 @@ class Settings extends React.Component {
     render() {
         return (
             <div className="d-flex p-5">
-                <h3>This page is under comstruction</h3>
+                <h3>This page is under construction</h3>
             </div>
         )
     }

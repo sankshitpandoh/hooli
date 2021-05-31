@@ -9,6 +9,7 @@ const router = new Router({
 router.post("/user", document.userLogin);
 router.post("/super", document.superLogin);
 router.post("/verify", document.verifySession);
+// router.post("/logout", document.logOut);
 
 module.exports =
     router;

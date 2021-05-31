@@ -7,7 +7,7 @@ let end_points = {
     login: `/api/login/user`,
     superLogin: `/api/login/super`,
     verifySession: `/api/login/verify`,
-    logOut: `/user/logout`,
+    logOut: `/api/login/logout`,
     uploadBulkPatients: `/api/patients/uploadBulk`,
     uploadSignlePatient: `/api/patients/uploadSingle`,
     getPatients: `/api/patients/getPatients`,

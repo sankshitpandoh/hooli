@@ -1,5 +1,4 @@
 import React from 'react';
-import DateChart from './patientDayChart';
 import Chart from "react-google-charts";
 import {chartData} from '../../../utilities/dataOps';
 import '../../../stylesheets/dashboard/mainDashboard.css'
@@ -47,13 +46,13 @@ class MainDashboard extends React.Component {
                 <div className="col-4 mb-5">
                     <div className="data-display p-5 d-flex flex-column w-100 justify-content-center align-items-center">
                         <p>Total Money Spent:</p>
-                        <strong className="mb-3">{this.state.totalMoney}</strong>
+                        <strong className="mb-3">{this.state.totalMoney.toFixed(2)}</strong>
                     </div>
                 </div>
                 <div className="col-4 mb-5">
                     <div className="data-display p-5 d-flex flex-column w-100 justify-content-center align-items-center">
                         <p>Average spending of a patient:</p>
-                        <strong className="mb-3">{this.state.averageMoney}</strong>
+                        <strong className="mb-3">{this.state.averageMoney.toFixed(2)}</strong>
                     </div>
                 </div>
                 <div className="col-6 mb-4">

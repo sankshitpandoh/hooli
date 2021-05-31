@@ -64,6 +64,7 @@ class Home extends React.Component {
                 console.log(res)
                 if (res && res.sessionLive) {
                     console.log("Session Verified");
+                    this.props.history.push("/home/dashboard");
                 } else {
                     console.log("Session Verification failed");
                     this.props.history.push("/login");
@@ -92,7 +93,7 @@ class Home extends React.Component {
 
 
     render() {
-        if (this.props.location && this.props.location.pathname === "/home/") {
+        if (this.props.location && this.props.location.pathname === "/home") {
             this.props.history.push("/home/dashboard")
         }
         return (

@@ -5,4 +5,10 @@
     border-right: 8px solid #F6F930;
     max-width: 45%;
     width: 100%;   
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+
+.single-pat-item:hover {
+    box-shadow: none;
 }

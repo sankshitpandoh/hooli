@@ -23,7 +23,7 @@ function MenuContainer (props) {
         return <SingleMenutItem handlePathChange={props.handlePathChange} data={data} key={index + "_menuItem"} activeData={props.currentPage !== 3 ? props.currentPage === index ? true : false : false }/>
     })
     return (
-        <div style={{height: "95vh", backgroundColor: "#D2F898"}}>
+        <div style={{height: "100vh", backgroundColor: "#D2F898"}}>
             {listItems}
         </div>
     )
