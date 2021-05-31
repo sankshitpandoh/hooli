@@ -1,6 +1,6 @@
 import React from 'react';
 import SinglePatienItem from './singlePatientitem.js';
-import {getPatients} from '../../../utilities/dataOps.js';
+import {getPatients, deletePatient} from '../../../utilities/dataOps.js';
 import ExpandedPatientData from './expandedPatient.js'
 import "../../../stylesheets/patients/patientDisplay.css";
 
@@ -82,6 +82,31 @@ class AllPatients extends React.Component {
         })
     }
 
+    deletePatient = (patientId) => {
+        if (window.confirm("Are you sure you want to delete this patient?")) {
+            this.setState({
+                showLoader:true 
+            }, () => {
+                deletePatient(patientId, sessionStorage.getItem("authToken")).then((res) => {
+                    this.setState({
+                        expandPatient: false,
+                        patientData:{},
+                        showLoader: false
+                    }, () => {
+                        alert("Patient deleted successfully");
+                        this.getPatientsData();
+                    })
+                }).catch((err) => {
+                    this.setState({
+                        showLoader: false
+                    }, (() => {
+                        alert("Couldn't delete patient, please try again later!");
+                    }))
+                })
+            })
+        }
+    }
+
     render() {
         let usersListProcessed = this.state.usersList.map((data, index) => {
             return <SinglePatienItem expandSinglePatient={this.expandSinglePatient} data={data} key={"SinglepatientItem_" + index} />
@@ -128,7 +153,7 @@ class AllPatients extends React.Component {
                         </div>                       
                         </>
                     :
-                    <ExpandedPatientData data={this.state.patientData} closeExpandedPatient={this.closeExpandedPatient}/>
+                    <ExpandedPatientData data={this.state.patientData} closeExpandedPatient={this.closeExpandedPatient} deletePatient={this.deletePatient}/>
                 }
             </div>
         )

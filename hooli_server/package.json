@@ -13,6 +13,7 @@
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
+    "mongodb": "^3.6.8",
     "mongoose": "^5.12.12",
     "recursive-readdir": "^2.2.2"
   }

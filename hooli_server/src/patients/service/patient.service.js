@@ -4,6 +4,9 @@ let db = require('../../../middleware/db.middleware');
 const getHashedPassword = require('../../../Plugins/utilities').getHashedPassword;
 const getToken = require('../../../Plugins/utilities').token;
 const authCheck = require('../../../Plugins/authCheck').authCheck;
+const {
+    ObjectID
+} = require('mongodb');
 
 async function uploadBulk(ctx) {
     if (ctx && ctx.request && ctx.request.body) {
@@ -143,6 +146,54 @@ async function getPatients(ctx) {
     }
 }
 
+async function deletePatient (ctx) {
+    if (ctx && ctx.request && ctx.request.body) {
+        if (!ctx.request.header || !ctx.request.header.authorization ) {
+            ctx.response.status = 401;
+            ctx.response.body = {
+                message: "UnAuthorized"
+            };
+        } else {
+            let tokenValid = await authCheck({accessToken: ctx.request.header.authorization});
+            if (tokenValid && tokenValid.valid) {
+                if (!ctx.request.body.patientId) {
+                    ctx.response.status = 400;
+                    ctx.response.body = {
+                        message: "Data to upload cannot be empty"
+                    };
+                } else {
+                    try {
+                        await mongoose.connection.db.collection("patientsData").deleteOne({
+                            "_id": ObjectID(ctx.request.body.patientId)
+                        })
+                        ctx.response.status = 200;
+                        ctx.response.body = {
+                            staus: "success",
+                        }
+                    } catch (err) {
+                        console.log("Something went wrong in deleting patient", err);
+                        ctx.response.status = 500;
+                        ctx.response.body = {
+                            message: "Internal Server Error"
+                        };
+                    }
+                }
+            } else {
+                ctx.response.status = 401;
+                ctx.response.body = {
+                    message: "UnAuthorized"
+                };
+            }
+        }
+    } else {
+        ctx.response.status = 400;
+        ctx.response.body = {
+            message: "Malformed Request"
+        };
+    }
+}
+
+
 async function singleUpload(ctx) {
     //TO DO:::
     // HANDLE SINGLE UPLOAD
@@ -151,5 +202,6 @@ async function singleUpload(ctx) {
 module.exports = {
     uploadBulk,
     singleUpload,
-    getPatients
+    getPatients,
+    deletePatient
 }

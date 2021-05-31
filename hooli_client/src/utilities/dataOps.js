@@ -63,6 +63,7 @@ const getPatients = (data) => {
                 } else {
                     reject({success: false});
                 }
+
             }).catch((err) => {
                 console.log("Error in getting patients data::::", err);
                 reject({success: false});
@@ -74,9 +75,39 @@ const getPatients = (data) => {
     })
 }
 
+const deletePatient = (data, token) => {
+    return new Promise ((resolve, reject) => {
+        try {
+            let config = {
+                headers: {
+                    'Authorization': token || "",
+                    'Content-type': 'application/json'
+                }
+            };
+            axios.post(end_points.deletePatient, {
+                patientId: data
+            }, config).then((res) => {
+                if (res && res.status === 200  ) {
+                    resolve({success: true});
+                } else {
+                    reject({success: false});
+                }
+
+            }).catch((err) => {
+                console.log("Error in deleting patient::::::", err);
+                reject({success: false});
+            })
+        } catch (err) {
+            console.log("Error in deleting patient::::::", err);
+            reject({success: false});
+        }
+    })
+}
+
 export {
     cleanUpdata,
     uploadPatients,
-    getPatients
+    getPatients,
+    deletePatient
 
 }

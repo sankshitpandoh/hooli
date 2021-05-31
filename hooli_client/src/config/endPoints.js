@@ -10,7 +10,8 @@ let end_points = {
     logOut: `/user/logout`,
     uploadBulkPatients: `/api/patients/uploadBulk`,
     uploadSignlePatient: `/api/patients/uploadSingle`,
-    getPatients: `/api/patients/getPatients`
+    getPatients: `/api/patients/getPatients`,
+    deletePatient: `/api/patients/deletePatient`
 }
 
 module.exports = {

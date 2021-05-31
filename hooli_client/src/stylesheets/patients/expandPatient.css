@@ -1,0 +1,26 @@
+.pat-btn-panel button {
+    border-radius: 5px;
+    background-color: #000;
+    color: #fcfcfc;
+    transition: 0.25s ease-in-out;
+    cursor: pointer;
+    border: 1px solid #000;
+}
+
+.pat-btn-panel button:disabled {
+    border-radius: 5px;
+    background-color: #fcfcfc !important;
+    color: grey !important;
+    border: 1px solid grey !important;
+    cursor: unset !important;
+}
+
+.pat-btn-panel button:hover {
+    background-color: transparent;
+    color: #000;
+    border-radius: 5px;
+}
+.activity-container {
+    height: 40vh;
+    overflow-y: auto;
+}
