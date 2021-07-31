@@ -130,8 +130,8 @@ async function getPatients(ctx) {
                             { skip: (ctx.request.body.page - 1) * 6, limit: 6 }
                         ).toArray();
                         patientsData.forEach((res, index) => {
-                            patientsData[index].firstName = getDecKey(patientsData[index].firstName); 
-                            patientsData[index].lastName = getDecKey(patientsData[index].lastName);
+                            patientsData[index].firstName = patientsData[index].firstName; 
+                            patientsData[index].lastName = patientsData[index].lastName
                         })
                         let totalCount = await mongoose.connection.db.collection("patientsData").countDocuments();
                         let moreData = false;
